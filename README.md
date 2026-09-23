@@ -63,8 +63,8 @@ npm run tail         # live request logs
   intentionally allows crawling so that tag can actually be read.
 - **The favicon reuses the full 2640x840 logo**, which renders as an illegible
   smear in a browser tab. Cut a square version of the circular mark.
-- **`info@alphainternational.energy` is assumed, not confirmed.** Verify the
-  mailbox exists.
+- **The page has no contact route.** Add one once an address exists (the
+  markup has no `.contact` block or link styles any more; both were removed).
 - **Inter is loaded from Google Fonts**, so the page needs network access to
   render as designed; it falls back to system sans otherwise.
 
