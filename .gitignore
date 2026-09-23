@@ -22,3 +22,7 @@ build/
 # Logs
 *.log
 npm-debug.log*
+
+# Cloudflare / Wrangler
+.wrangler/
+.dev.vars

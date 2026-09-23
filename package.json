@@ -1,0 +1,14 @@
+{
+  "name": "alpha-international",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Alpha International site, hosted on Cloudflare Workers",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "tail": "wrangler tail"
+  },
+  "devDependencies": {
+    "wrangler": "^4.137.0"
+  }
+}

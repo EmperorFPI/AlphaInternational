@@ -1,45 +1,81 @@
 # Alpha International
 
-Marketing site for Alpha International.
+Site for **alphainternational.energy**, hosted on Cloudflare Workers.
 
 ## Status
 
-Placeholder "under construction" page is live in [`index.html`](index.html). The
-full site has not been started yet.
+A placeholder "under construction" page is the entire site right now. The real
+site has not been started.
 
 ## Structure
 
 ```
 .
-├── index.html      # Under-construction landing page (self-contained, inline CSS)
-├── assets/
-│   └── logo.png    # Primary logo, 2640x840, dark background baked in
-└── README.md
+├── public/             # Everything in here is served as-is by the Worker
+│   ├── index.html      # Holding page (self-contained, inline CSS)
+│   ├── robots.txt
+│   ├── _headers        # Security + cache headers
+│   └── assets/
+│       └── logo.png    # Primary logo, 2640x840, dark background baked in
+├── wrangler.jsonc      # Worker + custom domain config
+└── package.json
 ```
 
-## Local preview
+This is an **assets-only Worker** — there is no `main` script, so Cloudflare
+serves `public/` directly with no code in the request path. Add a `main` entry
+to `wrangler.jsonc` if the site ever needs server-side logic.
 
-No build step — it's a static page. Either open `index.html` directly, or serve it:
+## Local development
 
 ```bash
-python -m http.server 8000
-# then visit http://localhost:8000
+npm install
+npm run dev          # http://localhost:8787
 ```
+
+`wrangler dev` runs the real Workers runtime locally, so `_headers` and the
+not-found behaviour match production.
+
+## Deploying
+
+First time only — authenticate and make sure the zone exists:
+
+```bash
+npx wrangler login
+```
+
+`alphainternational.energy` must already be an active zone in the same
+Cloudflare account, otherwise the `routes` block in `wrangler.jsonc` will fail
+to attach. Then:
+
+```bash
+npm run deploy
+npm run tail         # live request logs
+```
+
+## Things to revisit before the real site ships
+
+- **`not_found_handling` is `single-page-application`**, so *every* unmatched
+  path returns the holding page with a `200`. That's deliberate while this is a
+  placeholder, but it produces soft-404s. Switch to `404-page` (and add
+  `public/404.html`) once there is real content.
+- **`index.html` carries `<meta name="robots" content="noindex, nofollow">`** to
+  keep the placeholder out of search results. Remove it at launch. `robots.txt`
+  intentionally allows crawling so that tag can actually be read.
+- **The favicon reuses the full 2640x840 logo**, which renders as an illegible
+  smear in a browser tab. Cut a square version of the circular mark.
+- **`info@alphainternational.energy` is assumed, not confirmed.** Verify the
+  mailbox exists.
+- **Inter is loaded from Google Fonts**, so the page needs network access to
+  render as designed; it falls back to system sans otherwise.
 
 ## Brand
 
-| Token       | Value     | Use                          |
-| ----------- | --------- | ---------------------------- |
+| Token       | Value     | Use                            |
+| ----------- | --------- | ------------------------------ |
 | Background  | `#14181D` | Page background (matches logo) |
-| Accent      | `#2B9ADB` | Links, highlights, the mark   |
-| Accent deep | `#1E7EC1` | Gradients, hover depth        |
-| Text        | `#F2F5F8` | Headings and body             |
-| Muted text  | `#93A1B0` | Secondary copy               |
+| Accent      | `#2B9ADB` | Links, highlights, the mark    |
+| Accent deep | `#1E7EC1` | Gradients, hover depth         |
+| Text        | `#F2F5F8` | Headings and body              |
+| Muted text  | `#93A1B0` | Secondary copy                 |
 
 Typeface: Inter (Google Fonts).
-
-## TODO
-
-- [ ] Replace the placeholder contact address in `index.html`
-- [ ] Decide on the stack for the real site
-- [ ] Add a favicon at proper sizes (currently reuses the full logo)

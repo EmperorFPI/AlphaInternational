@@ -1,0 +1,5 @@
+# Crawling is allowed so bots can read the <meta name="robots" content="noindex">
+# on the holding page. Blocking here would hide that tag and could leave a bare
+# URL in search results instead. Drop the noindex tag when the real site ships.
+User-agent: *
+Allow: /
