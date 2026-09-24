@@ -79,9 +79,6 @@ npm run tail         # live request logs
 
 ### Functional
 
-- **No mobile navigation.** Below 940px, `.nav a:not(.btn)` is hidden and
-  nothing replaces it — no menu of any kind. Mobile visitors get the wordmark
-  and the briefing button only.
 - **Section 02 is unreachable from the nav.** "The edge" has `id="edge"` and a
   full section, but is absent from the header nav, so the visible numbering
   jumps 01 → 03 for anyone navigating by menu.
@@ -103,10 +100,6 @@ npm run tail         # live request logs
   that otherwise uses proper em-dashes and middots.
 - No `scroll-margin-top` under the 68px sticky header, so anchor jumps tuck
   each section's top border beneath it.
-- No favicon, `og:image`, `og:url` or canonical link.
-- `assets/logo.png` is not referenced anywhere. The header and footer use a
-  text-only ALPHA wordmark, so the circular mark does not appear on the site.
-  It is kept because it is the obvious source for the favicon and `og:image`.
 
 ### Worth re-checking at launch
 
@@ -135,6 +128,12 @@ Tokens as defined in `index.html`:
 
 Typefaces: Cormorant Garamond (display serif) and Inter (UI sans), both from
 Google Fonts.
+
+`assets/mark.svg` is the circular mark, auto-traced from `logo.png` by
+classifying pixels against the three source colours and contour-following the
+result. It is flat `--blue`, where the source PNG has a subtle gradient across
+the ring; at header and favicon sizes that difference is not visible. It is
+inlined once in the page as a `<symbol>` and referenced twice with `<use>`.
 
 Note that `assets/logo.png` was built on `#14181D` with a `#2B9ADB` accent,
 which is close to but not the same as `--carbon` and `--blue`. Re-export the
