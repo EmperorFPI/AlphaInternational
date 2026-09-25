@@ -19,10 +19,11 @@ clean diff. The open items below are not yet addressed.
 ├── public/             # Everything in here is served as-is by the Worker
 │   ├── index.html      # Homepage, served at /
 │   ├── contact.html    # Contact page, served at /contact
+│   ├── news.html       # News and announcements, served at /news
 │   ├── robots.txt
 │   ├── _headers        # Security + cache headers
 │   └── assets/
-│       ├── site.css    # All styles, shared by both pages
+│       ├── site.css    # All styles, shared by all pages
 │       ├── site.js     # Footer year, mobile menu, contact form
 │       ├── mark.svg    # Circular mark, traced from logo.png. Favicon + chrome
 │       └── logo.png    # Full lockup, 2640x840. Used for og:image
@@ -31,13 +32,27 @@ clean diff. The open items below are not yet addressed.
 ```
 
 Styles and behaviour live in `assets/site.css` and `assets/site.js`, shared by
-both pages so they cannot drift apart. Every graphic is still inline SVG — there
-are no `<img>` tags anywhere. The header and footer *markup* is duplicated in the
-two HTML files, since there is no build step; keep them in step by hand.
+all three pages so they cannot drift apart. Every graphic is still inline SVG —
+there are no `<img>` tags anywhere. The header and footer *markup* is duplicated
+across the three HTML files, since there is no build step; a nav change has to be
+made in each of them by hand.
 
 This is an **assets-only Worker** — there is no `main` script, so Cloudflare
 serves `public/` directly with no code in the request path. Add a `main` entry
 to `wrangler.jsonc` if the site ever needs server-side logic.
+
+## Adding a news item
+
+`news.html` currently shows an empty state. The markup for a list item sits
+directly above it in an HTML comment, with notes on which variant to use:
+`<a>` when the item links to a full article or PDF, `<div class="inner">` when
+the summary is the whole thing. Delete the `.empty` block, uncomment the
+`<ul class="newslist">`, and add one `<li class="item">` per entry, newest
+first. Set `<time datetime="YYYY-MM-DD">` to the real date — that attribute is
+what machines read, the visible text is for people.
+
+Articles that need their own page have nowhere to live yet; `/news/<slug>`
+would need a file per article under `public/news/`.
 
 ## Local development
 
