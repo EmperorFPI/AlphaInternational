@@ -19,7 +19,9 @@ clean diff. The open items below are not yet addressed.
 ├── public/             # Everything in here is served as-is by the Worker
 │   ├── index.html      # Homepage, served at /
 │   ├── contact.html    # Contact page, served at /contact
-│   ├── news.html       # News and announcements, served at /news
+│   ├── news/
+│   │   ├── index.html  # News listing, served at /news/
+│   │   └── <slug>.html # One file per article, served at /news/<slug>
 │   ├── robots.txt
 │   ├── _headers        # Security + cache headers
 │   └── assets/
@@ -27,32 +29,52 @@ clean diff. The open items below are not yet addressed.
 │       ├── site.js     # Footer year, mobile menu, contact form
 │       ├── mark.svg    # Circular mark, traced from logo.png. Favicon + chrome
 │       └── logo.png    # Full lockup, 2640x840. Used for og:image
+├── templates/
+│   └── article.html    # Article template. NOT served — it sits outside public/
 ├── wrangler.jsonc      # Worker + custom domain config
 └── package.json
 ```
 
 Styles and behaviour live in `assets/site.css` and `assets/site.js`, shared by
-all three pages so they cannot drift apart. Every graphic is still inline SVG —
-there are no `<img>` tags anywhere. The header and footer *markup* is duplicated
-across the three HTML files, since there is no build step; a nav change has to be
-made in each of them by hand.
+every page so they cannot drift apart. All asset references are root-relative
+(`/assets/…`) so that pages work at any depth — that matters now that articles
+live one level down. Every graphic is inline SVG; there are no `<img>` tags.
+
+The header and footer *markup* is duplicated across the HTML files, since there
+is no build step; a nav change has to be made in each of them by hand. That is
+the main cost of staying build-free, and it grows with each article.
 
 This is an **assets-only Worker** — there is no `main` script, so Cloudflare
 serves `public/` directly with no code in the request path. Add a `main` entry
 to `wrangler.jsonc` if the site ever needs server-side logic.
 
-## Adding a news item
+## Publishing an article
 
-`news.html` currently shows an empty state. The markup for a list item sits
-directly above it in an HTML comment, with notes on which variant to use:
-`<a>` when the item links to a full article or PDF, `<div class="inner">` when
-the summary is the whole thing. Delete the `.empty` block, uncomment the
-`<ul class="newslist">`, and add one `<li class="item">` per entry, newest
-first. Set `<time datetime="YYYY-MM-DD">` to the real date — that attribute is
-what machines read, the visible text is for people.
+Two files are involved: the article itself, and its entry in the listing.
 
-Articles that need their own page have nowhere to live yet; `/news/<slug>`
-would need a file per article under `public/news/`.
+1. **Write the page.** Copy `templates/article.html` to
+   `public/news/<slug>.html`. It is then live at `/news/<slug>`. The template
+   carries the full page chrome and a comment at the top explaining every
+   `{{PLACEHOLDER}}`. Replace them all, then search the file for `{{` — nothing
+   should be left.
+2. **Add it to the listing.** `public/news/index.html` currently shows an empty
+   state, with the list markup sitting above it in a comment. Delete the
+   `.empty` block, uncomment `<ul class="newslist">`, and add one
+   `<li class="item">` per entry, newest first.
+
+Use the `<a href="/news/<slug>">` variant of a list item when there is a full
+article to click through to, and the `<div class="inner">` variant when the
+summary in the listing is the whole announcement and there is nowhere to go.
+
+Set `<time datetime="YYYY-MM-DD">` to the real publication date in both places —
+that attribute is what machines read, the visible text is for people. Keep the
+listing summary and the article's `{{EXCERPT}}` saying the same thing, since the
+excerpt is also what search results and social cards show.
+
+Body helpers available inside `.article`: `<blockquote>` with `<cite>`,
+`<div class="pull">` for a highlighted aside, `<figure>` with `<figcaption>`,
+`<p class="note">` for small print, `<hr>` for a section break, and
+`class="first"` on the opening paragraph for a drop cap.
 
 ## Local development
 

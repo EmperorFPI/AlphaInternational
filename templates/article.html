@@ -1,18 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
+<!--
+  ARTICLE TEMPLATE  —  this file is not served. It lives outside public/ on purpose.
+
+  To publish a piece:
+    1. Copy this file to  public/news/<slug>.html   (lowercase, hyphens, no dates
+       in the slug unless you want them in the URL). It is then live at /news/<slug>.
+    2. Replace every {{...}} marker below. Search the file for "{{" when you are
+       done -- none should remain.
+    3. Add the matching <li class="item"> to public/news/index.html so the piece
+       appears in the listing. The markup for it is commented in that file.
+
+  Notes:
+    - {{KIND}} is either  Article  or  Announcement. For an announcement, also add
+      class "ann" to the .kind span in the header so the tag renders in brass.
+    - {{ISO_DATE}} is YYYY-MM-DD and feeds <time datetime>. {{DATE}} is the human
+      form, e.g. 14 October 2026. Keep the two in step.
+    - Drop the byline line entirely if the piece is unattributed.
+    - Body helpers available inside .article: <blockquote> with <cite>,
+      <div class="pull"> for a highlighted aside, <figure> with <figcaption>,
+      <p class="note"> for small print, and <hr> for a section break.
+    - Put class="first" on the opening paragraph for the drop cap, or leave it off.
+-->
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Contact — Alpha International</title>
-<meta name="description" content="Request an investor briefing, propose a technical mandate or introduce an asset to Alpha International.">
-<meta property="og:title" content="Contact — Alpha International">
-<meta property="og:description" content="Request an investor briefing, propose a technical mandate or introduce an asset to Alpha International.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://alphainternational.energy/contact">
+<title>{{TITLE}} — Alpha International</title>
+<meta name="description" content="{{EXCERPT}}">
+<meta property="og:title" content="{{TITLE}} — Alpha International">
+<meta property="og:description" content="{{EXCERPT}}">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="{{ISO_DATE}}">
+<meta property="og:url" content="https://alphainternational.energy/news/{{SLUG}}">
 <meta property="og:image" content="https://alphainternational.energy/assets/logo.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#0B2A45">
-<link rel="canonical" href="https://alphainternational.energy/contact">
+<link rel="canonical" href="https://alphainternational.energy/news/{{SLUG}}">
 <link rel="icon" href="/assets/mark.svg" type="image/svg+xml">
 <link rel="icon" href="/assets/logo.png" sizes="any">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -42,126 +65,55 @@
       <a href="/#mandate">Global mandate</a>
       <a href="/#platform">Platform</a>
       <a href="/#team">Team</a>
-      <a href="/news/">News</a>
-      <a class="btn" href="/contact" aria-current="page">Investor briefing <span class="ar" aria-hidden="true">→</span></a>
+      <a href="/news/" aria-current="page">News</a>
+      <a class="btn" href="/contact">Investor briefing <span class="ar" aria-hidden="true">→</span></a>
     </nav>
   </div>
 </header>
 
 <main id="top">
 
-<!-- ============ PAGE HEAD ============ -->
-<section class="pagehead" aria-labelledby="h-contact">
+<!-- ============ ARTICLE HEAD ============ -->
+<article>
+<section class="pagehead arthead" aria-labelledby="h-art">
   <div class="wrap">
-    <div class="eyebrow">Investor relations &nbsp;·&nbsp; Technical mandates</div>
-    <h1 id="h-contact">Speak with <em>the principals.</em></h1>
-    <p class="lede">Briefings cover Alpha's approach to assessing, acquiring and operating mature
-      conventional fields, and are held with institutional and accredited investors, family offices
-      and strategic partners.</p>
+    <p class="artcrumb"><a href="/news/">&larr; News &amp; announcements</a></p>
+    <div class="artmeta">
+      <time class="date" datetime="{{ISO_DATE}}">{{DATE}}</time>
+      <span class="dot" aria-hidden="true"></span>
+      <span class="kind">{{KIND}}</span>
+      <span class="dot" aria-hidden="true"></span>
+      <span class="by">By {{AUTHOR}}</span>
+    </div>
+    <h1 id="h-art">{{TITLE}}</h1>
+    <p class="artdeck">{{DECK}}</p>
   </div>
 </section>
 
-<!-- ============ FORM ============ -->
+<!-- ============ BODY ============ -->
 <section class="s">
-  <div class="wrap cgrid">
+  <div class="wrap">
+    <div class="article">
 
-    <form class="form" id="contact-form" novalidate>
-      <div class="fhead">
-        <h2>Send an enquiry</h2>
-        <p>Tell us who you are and what you are looking at. We read everything that arrives here.</p>
-      </div>
-      <div class="fbody">
+      <p class="first">{{OPENING_PARAGRAPH}}</p>
 
-        <div class="frow">
-          <div class="fld">
-            <label for="f-name">Name</label>
-            <input id="f-name" name="name" type="text" autocomplete="name" required>
-          </div>
-          <div class="fld">
-            <label for="f-org">Organisation</label>
-            <input id="f-org" name="organisation" type="text" autocomplete="organization" required>
-          </div>
-        </div>
+      <p>{{PARAGRAPH}}</p>
 
-        <div class="frow">
-          <div class="fld">
-            <label for="f-email">Email</label>
-            <input id="f-email" name="email" type="email" autocomplete="email" required>
-          </div>
-          <div class="fld">
-            <label for="f-phone">Phone <span class="opt">(optional)</span></label>
-            <input id="f-phone" name="phone" type="tel" autocomplete="tel">
-          </div>
-        </div>
+      <h2>{{SUBHEADING}}</h2>
+      <p>{{PARAGRAPH}}</p>
 
-        <div class="fld">
-          <label for="f-type">Nature of enquiry</label>
-          <select id="f-type" name="enquiry_type" required>
-            <option value="">Please choose…</option>
-            <option>Investor briefing</option>
-            <option>Technical mandate</option>
-            <option>Asset introduction</option>
-            <option>Partnership or joint venture</option>
-            <option>Media</option>
-            <option>Other</option>
-          </select>
-        </div>
-
-        <div class="fld">
-          <label for="f-msg">Message</label>
-          <textarea id="f-msg" name="message" required></textarea>
-        </div>
-
-        <!-- Bots fill this; people never see it. -->
-        <div class="hp" aria-hidden="true">
-          <label for="f-website">Company website</label>
-          <input id="f-website" name="company_website" type="text" tabindex="-1" autocomplete="off">
-        </div>
-
-        <button class="btn" type="submit">Send enquiry <span class="ar" aria-hidden="true">→</span></button>
-
-        <div class="fstatus" id="form-status" role="status" aria-live="polite"></div>
-
-        <p class="fnote">We use what you send only to respond to your enquiry. Nothing on this site
-          is an offer to sell or a solicitation to buy any security.</p>
-      </div>
-    </form>
-
-    <div class="aside">
-      <div class="card">
-        <div class="row head">
-          <h3>Alpha Energy group</h3>
-        </div>
-        <div class="row">
-          <span class="lbl">Group</span>
-          <span class="val2"><a href="https://alpha.energy" rel="noopener">alpha.energy</a></span>
-        </div>
-        <div class="row">
-          <span class="lbl">Latin America</span>
-          <span class="val2"><a href="https://alphalatinamerica.com" rel="noopener">alphalatinamerica.com</a></span>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="row">
-          <span class="lbl">Who we meet</span>
-          <p>Institutional and accredited investors, family offices, strategic partners, and
-            operators or sellers with mature conventional assets.</p>
-        </div>
-        <div class="row">
-          <span class="lbl">Regions</span>
-          <p>Americas · Africa &amp; North Africa · Middle East</p>
-        </div>
-        <div class="row">
-          <p class="note">Any offering is made only through definitive documents to eligible
-            investors. Alpha's activities in Venezuela are conducted in accordance with applicable
-            U.S. sanctions regulations.</p>
-        </div>
-      </div>
     </div>
 
+    <div class="artfoot">
+      <a class="back" href="/news/">&larr; All news &amp; announcements</a>
+      <p class="disc">Nothing on this page is an offer to sell or a solicitation to buy any
+        security. Any offering is made only through definitive documents to eligible investors.
+        Statements about targets and plans are forward-looking and subject to risks and
+        uncertainties, including commodity prices, regulation and operating conditions.</p>
+    </div>
   </div>
 </section>
+</article>
 
 </main>
 
