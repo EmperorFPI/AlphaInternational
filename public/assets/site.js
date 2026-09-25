@@ -38,14 +38,13 @@
      CONTACT_EMAIL is where enquiries should end up. A static page cannot send
      mail by itself, so it is used here only for the fallback link below.
 
-     CONTACT_ENDPOINT is the URL this form POSTs to. It is still empty, because
-     delivering to CONTACT_EMAIL needs something server-side to do the sending
-     -- a Worker calling an email API, or a hosted form service. Set it and the
-     form goes live: the fallback notice and the disabled submit button both
-     clear themselves. Until then the form refuses to submit rather than
-     silently dropping what someone typed, and points at the mailbox instead. */
+     CONTACT_ENDPOINT is the URL this form POSTs to: a HighLevel inbound
+     webhook, which handles the routing and notification on their side. It
+     answers CORS preflight with Allow-Origin *, so the browser can post to it
+     directly. Empty it again and the form falls back to the mailbox notice
+     below rather than dropping what someone typed. */
   var CONTACT_EMAIL = 'administrator@alphainternational.energy';
-  var CONTACT_ENDPOINT = '';
+  var CONTACT_ENDPOINT = 'https://services.leadconnectorhq.com/hooks/sYkF9ObuKYHLT57aP5VV/webhook-trigger/f78805d9-5aa6-492c-b201-35cde4b14c79';
 
   var form = document.getElementById('contact-form');
   if (form) {
@@ -79,6 +78,8 @@
 
       var data = {};
       new FormData(form).forEach(function (v, k) { if (k !== 'company_website') { data[k] = v; } });
+      // Alpha runs more than one site into the same CRM; say which one this is.
+      data.source = 'alphainternational.energy';
 
       if (submit) { submit.disabled = true; }
       say('ok', 'Sending…');

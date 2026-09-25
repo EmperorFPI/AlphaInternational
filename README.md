@@ -48,6 +48,39 @@ This is an **assets-only Worker** — there is no `main` script, so Cloudflare
 serves `public/` directly with no code in the request path. Add a `main` entry
 to `wrangler.jsonc` if the site ever needs server-side logic.
 
+## The contact form
+
+The form on `/contact` POSTs JSON to a HighLevel inbound webhook, set as
+`CONTACT_ENDPOINT` in `assets/site.js`. The endpoint answers CORS preflight
+with `Allow-Origin: *`, so the browser posts to it directly and the site stays
+assets-only with no Worker code.
+
+Payload, one key per field:
+
+```json
+{
+  "name":         "Jane Smith",
+  "organisation": "Example Capital",
+  "email":        "jane@example.com",
+  "phone":        "+1 555 0100",
+  "enquiry_type": "Investor briefing",
+  "message":      "...",
+  "source":       "alphainternational.energy"
+}
+```
+
+`source` is added by the script so leads from this site can be told apart from
+alpha.energy and alphalatinamerica.com in the same CRM. The honeypot field
+`company_website` is stripped before sending; if it arrives filled the submit
+is dropped silently, so it never reaches HighLevel.
+
+If HighLevel needs to create contacts automatically it may want `first_name`
+and `last_name` rather than a single `name` — map it in the workflow, or say
+so and the form can send both.
+
+Emptying `CONTACT_ENDPOINT` disables the form and falls back to a notice
+pointing at `CONTACT_EMAIL`, rather than accepting input it cannot deliver.
+
 ## Publishing an article
 
 Two files are involved: the article itself, and its entry in the listing.
@@ -107,26 +140,12 @@ npm run tail         # live request logs
 
 ### Needs a decision or sign-off, not a code change
 
-- **The contact form still cannot submit.** Enquiries are meant to reach
-  `administrator@alphainternational.energy`, which is set as `CONTACT_EMAIL` in
-  `assets/site.js` and published on the contact page. But a static page cannot
-  send mail: the form needs `CONTACT_ENDPOINT` — a URL that accepts the POST and
-  does the sending. Until that is set the submit button stays disabled and the
-  form tells people to email the address directly, so nothing is silently lost.
-
-  Two ways to close it, both needing an account somewhere:
-
-  - **A hosted form service** (Formspree, Web3Forms, Basin). You configure the
-    destination address there and paste the URL they give you into
-    `CONTACT_ENDPOINT`. No Worker code, the site stays assets-only. Submissions
-    pass through a third party.
-  - **A Worker plus an email API** (Resend, Postmark, Mailgun). Adds a `main`
-    script to `wrangler.jsonc`, an API key as a Worker secret, and DNS records
-    to verify the sending domain. More setup, but nothing leaves Cloudflare
-    except the send itself.
-
-  Either way the form's own code does not change — it already POSTs JSON with
-  the field names as keys. **This must be closed before the site goes live.**
+- **The contact webhook URL is public.** It sits in `assets/site.js`, which is
+  the only place a browser-side form can keep it, so anyone reading the page
+  source can POST to it directly and flood the CRM. The honeypot field only
+  stops naive bots that fill every input. If junk starts arriving, the fixes
+  are Cloudflare Turnstile in front of the submit, or moving the POST behind a
+  Worker so the URL never reaches the page.
 - **Named third parties.** ExxonMobil Trading and Halliburton are presented as
   commercial and technical partners, and a production-partnership framework
   with PDVSA is described. These imply relationships those parties may want to
