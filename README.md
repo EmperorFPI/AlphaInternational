@@ -28,7 +28,9 @@ clean diff. The open items below are not yet addressed.
 │       ├── site.css    # All styles, shared by all pages
 │       ├── site.js     # Footer year, mobile menu, contact form
 │       ├── mark.svg    # Circular mark, traced from logo.png. Favicon + chrome
-│       └── logo.png    # Full lockup, 2640x840. Used for og:image
+│       ├── favicon-32.png      # Raster favicon fallback, square
+│       ├── apple-touch-icon.png # 180x180 on solid ground for iOS
+│       └── logo.png    # Full lockup, 2640x840. og:image only
 ├── src/
 │   └── index.js        # Worker: relays /api/contact to the HighLevel webhook
 ├── templates/
