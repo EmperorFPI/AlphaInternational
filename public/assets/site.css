@@ -491,3 +491,6 @@
     .article p,.article li{font-size:16px}
     .article p.first::first-letter{font-size:2.7em}
   }
+  /* A long pull quote: lead line at display size, continuation readable. */
+  .article blockquote p + p{font-family:var(--sans);font-size:16.5px;line-height:1.65;
+    color:var(--ink-soft);margin-top:16px}
