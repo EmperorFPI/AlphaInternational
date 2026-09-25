@@ -29,33 +29,57 @@ clean diff. The open items below are not yet addressed.
 │       ├── site.js     # Footer year, mobile menu, contact form
 │       ├── mark.svg    # Circular mark, traced from logo.png. Favicon + chrome
 │       └── logo.png    # Full lockup, 2640x840. Used for og:image
+├── src/
+│   └── index.js        # Worker: relays /api/contact to the HighLevel webhook
 ├── templates/
 │   └── article.html    # Article template. NOT served — it sits outside public/
 ├── wrangler.jsonc      # Worker + custom domain config
+├── .dev.vars.example   # Copy to .dev.vars for local secrets
 └── package.json
 ```
 
 Styles and behaviour live in `assets/site.css` and `assets/site.js`, shared by
-every page so they cannot drift apart. All asset references are root-relative
-(`/assets/…`) so that pages work at any depth — that matters now that articles
-live one level down. Every graphic is inline SVG; there are no `<img>` tags.
+every page so they cannot drift apart. Asset references are relative with the
+right depth — `assets/…` at the root, `../assets/…` under `news/` — so pages
+render correctly both when served and when opened straight from disk. Internal
+links are absolute, so clicking between pages still needs `npm run dev`. Every
+graphic is inline SVG; there are no `<img>` tags.
 
 The header and footer *markup* is duplicated across the HTML files, since there
 is no build step; a nav change has to be made in each of them by hand. That is
 the main cost of staying build-free, and it grows with each article.
 
-This is an **assets-only Worker** — there is no `main` script, so Cloudflare
-serves `public/` directly with no code in the request path. Add a `main` entry
-to `wrangler.jsonc` if the site ever needs server-side logic.
+The site is static apart from one route. `src/index.js` handles `/api/contact`
+and hands everything else to the assets binding untouched, so no page render
+goes through Worker code. `run_worker_first` is set for `/api/*` in
+`wrangler.jsonc`, otherwise the SPA fallback would answer that path with
+`index.html` before the Worker ever ran.
 
 ## The contact form
 
-The form on `/contact` POSTs JSON to a HighLevel inbound webhook, set as
-`CONTACT_ENDPOINT` in `assets/site.js`. The endpoint answers CORS preflight
-with `Allow-Origin: *`, so the browser posts to it directly and the site stays
-assets-only with no Worker code.
+The form on `/contact` POSTs JSON to `/api/contact` on this origin. That route
+is handled by `src/index.js`, which validates the submission and forwards it to
+a HighLevel inbound webhook. The webhook URL is held in the `HL_WEBHOOK_URL`
+secret and never reaches the browser.
 
-Payload, one key per field:
+### Setting the secret
+
+Production, once per environment:
+
+```bash
+npx wrangler secret put HL_WEBHOOK_URL
+# paste the LeadConnector webhook-trigger URL when prompted
+```
+
+Local development reads `.dev.vars` instead, which is gitignored. Copy
+`.dev.vars.example` to `.dev.vars` and fill it in. Without it the Worker
+returns 503 and the form shows a failure message pointing at `CONTACT_EMAIL` —
+it never pretends a submission succeeded.
+
+### What gets forwarded
+
+The Worker accepts only the known fields and drops anything else, so the relay
+cannot be used to push arbitrary payloads into the CRM:
 
 ```json
 {
@@ -65,21 +89,23 @@ Payload, one key per field:
   "phone":        "+1 555 0100",
   "enquiry_type": "Investor briefing",
   "message":      "...",
-  "source":       "alphainternational.energy"
+  "source":       "alphainternational.energy",
+  "submitted_at": "2026-09-25T20:53:21.173Z"
 }
 ```
 
-`source` is added by the script so leads from this site can be told apart from
-alpha.energy and alphalatinamerica.com in the same CRM. The honeypot field
-`company_website` is stripped before sending; if it arrives filled the submit
-is dropped silently, so it never reaches HighLevel.
+`source` and `submitted_at` are stamped by the Worker, not the page, so they
+cannot be spoofed by anything posting to `/api/contact` directly. `source` has
+`www.` stripped so apex and www visitors are not counted as two origins.
+
+Rejected before anything is forwarded: non-POST methods (405), cross-origin
+posts (403), bodies over 16KB (413), malformed JSON (400), missing required
+fields (400), and invalid email addresses (400). A filled `company_website`
+honeypot returns 200 but forwards nothing, so bots believe they succeeded.
 
 If HighLevel needs to create contacts automatically it may want `first_name`
-and `last_name` rather than a single `name` — map it in the workflow, or say
-so and the form can send both.
-
-Emptying `CONTACT_ENDPOINT` disables the form and falls back to a notice
-pointing at `CONTACT_EMAIL`, rather than accepting input it cannot deliver.
+and `last_name` rather than a single `name` — map it in the workflow, or say so
+and the form can send both.
 
 ## Publishing an article
 
@@ -140,12 +166,11 @@ npm run tail         # live request logs
 
 ### Needs a decision or sign-off, not a code change
 
-- **The contact webhook URL is public.** It sits in `assets/site.js`, which is
-  the only place a browser-side form can keep it, so anyone reading the page
-  source can POST to it directly and flood the CRM. The honeypot field only
-  stops naive bots that fill every input. If junk starts arriving, the fixes
-  are Cloudflare Turnstile in front of the submit, or moving the POST behind a
-  Worker so the URL never reaches the page.
+- **The HighLevel webhook URL is in git history.** It was committed in c4ba308,
+  before being moved into the `HL_WEBHOOK_URL` secret. It is out of the served
+  pages now, but anyone with repo access can still read it from history. If the
+  repo is or becomes public, regenerate the webhook in HighLevel and set the
+  new URL as the secret.
 - **Named third parties.** ExxonMobil Trading and Halliburton are presented as
   commercial and technical partners, and a production-partnership framework
   with PDVSA is described. These imply relationships those parties may want to

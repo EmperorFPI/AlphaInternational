@@ -1,0 +1,4 @@
+# Copy to .dev.vars for local development. .dev.vars is gitignored.
+# In production this value lives in a Cloudflare secret, not in any file:
+#   npx wrangler secret put HL_WEBHOOK_URL
+HL_WEBHOOK_URL="https://services.leadconnectorhq.com/hooks/.../webhook-trigger/..."
