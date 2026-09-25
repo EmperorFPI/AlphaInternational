@@ -1,231 +1,575 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Alpha International — Coming Soon</title>
-<meta name="description" content="Alpha International. Our new site is under construction and launching soon.">
-<meta name="robots" content="noindex, nofollow">
-<meta name="theme-color" content="#14181D">
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Alpha International — Engineering-led value in global conventional oil</title>
+<meta name="description" content="Alpha acquires mature conventional oil fields the market has written down to their decline curve, then applies major-company reservoir engineering to close the gap. Oil price is beta. Engineering is Alpha.">
+<meta property="og:title" content="Alpha International">
+<meta property="og:description" content="Oil price is beta. Engineering is Alpha. Engineering-led value in global conventional oil.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Alpha International — Coming Soon">
-<meta property="og:description" content="Our new site is under construction and launching soon.">
-<meta property="og:image" content="https://alphainternational.energy/assets/logo.png">
 <meta property="og:url" content="https://alphainternational.energy/">
+<meta property="og:image" content="https://alphainternational.energy/assets/logo.png">
 <meta name="twitter:card" content="summary_large_image">
-
+<meta name="theme-color" content="#0B2A45">
 <link rel="canonical" href="https://alphainternational.energy/">
-<link rel="icon" href="assets/logo.png">
+<link rel="icon" href="assets/mark.svg" type="image/svg+xml" sizes="any">
+<link rel="icon" href="assets/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-
-<style>
-  :root {
-    --bg: #14181D;
-    --bg-lift: #1B2027;
-    --accent: #2B9ADB;
-    --accent-deep: #1E7EC1;
-    --text: #F2F5F8;
-    --text-dim: #93A1B0;
-    --rule: rgba(255, 255, 255, 0.10);
-    --gutter: 16px;
-  }
-
-  * { box-sizing: border-box; }
-
-  html, body { height: 100%; }
-
-  body {
-    margin: 0;
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    font-weight: 400;
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-    display: flex;
-    flex-direction: column;
-    overflow-x: hidden;
-  }
-
-  /* Soft blue wash behind the mark, plus a faint grid for depth. */
-  .backdrop {
-    position: fixed;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-    background:
-      radial-gradient(60rem 40rem at 50% 12%, rgba(43, 154, 219, 0.16), transparent 70%),
-      radial-gradient(40rem 30rem at 85% 95%, rgba(30, 126, 193, 0.10), transparent 70%);
-  }
-
-  .backdrop::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(var(--rule) 1px, transparent 1px),
-      linear-gradient(90deg, var(--rule) 1px, transparent 1px);
-    background-size: 64px 64px;
-    opacity: 0.35;
-    mask-image: radial-gradient(70% 60% at 50% 40%, #000 20%, transparent 100%);
-    -webkit-mask-image: radial-gradient(70% 60% at 50% 40%, #000 20%, transparent 100%);
-  }
-
-  main {
-    position: relative;
-    z-index: 1;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 56px var(--gutter);
-  }
-
-  .logo {
-    width: min(560px, 100%);
-    height: auto;
-    display: block;
-    margin-bottom: 40px;
-    animation: rise 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
-  }
-
-  .eyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    margin: 0 0 20px;
-    padding: 7px 16px 7px 13px;
-    border: 1px solid rgba(43, 154, 219, 0.35);
-    border-radius: 999px;
-    background: rgba(43, 154, 219, 0.08);
-    color: var(--accent);
-    font-size: 0.72rem;
-    font-weight: 500;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    animation: rise 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.12s both;
-  }
-
-  .pulse {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: var(--accent);
-    box-shadow: 0 0 0 0 rgba(43, 154, 219, 0.7);
-    animation: pulse 2.2s ease-out infinite;
-  }
-
-  h1 {
-    margin: 0 0 18px;
-    font-size: clamp(1.9rem, 6vw, 3.25rem);
-    font-weight: 600;
-    letter-spacing: -0.02em;
-    line-height: 1.15;
-    animation: rise 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
-  }
-
-  h1 .accent { color: var(--accent); }
-
-  .lede {
-    margin: 0 auto 36px;
-    max-width: 52ch;
-    color: var(--text-dim);
-    font-size: clamp(0.98rem, 2.4vw, 1.1rem);
-    font-weight: 300;
-    animation: rise 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.28s both;
-  }
-
-  .track {
-    width: min(420px, 100%);
-    height: 3px;
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.07);
-    overflow: hidden;
-    animation: rise 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.36s both;
-  }
-
-  .track span {
-    display: block;
-    width: 38%;
-    height: 100%;
-    border-radius: 999px;
-    background: linear-gradient(90deg, transparent, var(--accent), var(--accent-deep), transparent);
-    animation: sweep 2.6s cubic-bezier(0.45, 0, 0.55, 1) infinite;
-  }
-
-  footer {
-    position: relative;
-    z-index: 1;
-    padding: 24px var(--gutter) 32px;
-    border-top: 1px solid var(--rule);
-    color: #6C7A88;
-    font-size: 0.78rem;
-    letter-spacing: 0.04em;
-    text-align: center;
-  }
-
-  @keyframes rise {
-    from { opacity: 0; transform: translateY(16px); }
-    to   { opacity: 1; transform: none; }
-  }
-
-  @keyframes sweep {
-    0%   { transform: translateX(-110%); }
-    100% { transform: translateX(370%); }
-  }
-
-  @keyframes pulse {
-    0%   { box-shadow: 0 0 0 0 rgba(43, 154, 219, 0.65); }
-    70%  { box-shadow: 0 0 0 9px rgba(43, 154, 219, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(43, 154, 219, 0); }
-  }
-
-  @media (max-width: 480px) {
-    .logo { margin-bottom: 28px; }
-    main { padding: 40px var(--gutter); }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
-      animation-duration: 0.01ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.01ms !important;
-    }
-    .track span { width: 100%; }
-  }
-</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="assets/site.css">
 </head>
 <body>
-  <div class="backdrop" aria-hidden="true"></div>
+<svg width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute">
+  <symbol id="mark" viewBox="167 145 522 546">
+    <path fill="#FFFFFF" fill-rule="evenodd" d="M555,238L605,281L593,294L593,296L586,302L586,304L579,310L579,312L573,317L573,319L566,325L566,327L560,332L560,335L573,353L585,379L593,408L596,436L594,470L589,492L578,521L566,541L616,588L572,635L564,630L521,588L511,595L507,596L506,598L478,611L458,617L434,621L398,621L367,615L342,606L311,588L299,577L297,577L281,561L281,559L276,555L276,553L273,551L273,549L270,547L270,545L262,535L252,516L247,500L245,498L238,467L237,423L241,400L250,372L261,350L263,349L271,335L288,317L288,315L291,314L300,304L302,304L305,300L307,300L309,297L311,297L324,287L353,273L387,264L425,262L460,267L487,276L511,289L555,238Z"/>
+    <path fill="#1B8DD1" fill-rule="evenodd" d="M639,145L643,146L648,152L650,152L672,173L674,173L679,179L681,179L689,188L660,220L660,222L654,227L654,229L646,236L646,238L639,244L639,246L614,273L614,275L607,281L607,283L612,287L612,289L615,291L615,293L618,295L618,297L621,299L626,309L630,313L646,344L658,380L665,423L665,461L658,504L643,546L626,577L617,588L617,591L672,643L628,690L626,690L619,682L617,682L572,638L569,638L560,646L537,659L536,661L508,674L469,686L431,691L388,690L351,683L308,667L271,645L260,635L258,635L254,630L252,630L228,606L228,604L219,595L219,593L213,587L204,571L200,567L181,526L172,494L169,477L167,457L167,426L172,389L176,373L188,340L201,315L203,314L204,310L206,309L212,298L215,296L217,291L247,258L249,258L261,246L274,238L276,235L280,234L282,231L302,221L303,219L306,219L323,210L346,202L377,195L396,193L436,193L471,198L512,211L542,226L546,230L559,237L639,145ZM556,238L551,242L551,244L545,249L545,251L538,257L538,259L531,265L531,267L511,289L487,276L460,267L425,262L387,264L353,273L324,287L323,289L309,297L307,300L305,300L302,304L300,304L291,314L288,315L288,317L271,335L271,337L261,350L250,372L242,396L237,423L238,467L245,498L247,500L252,516L262,535L264,536L270,547L273,549L273,551L276,553L276,555L281,559L281,561L297,577L299,577L311,588L313,588L323,596L329,598L330,600L349,609L379,618L398,621L434,621L462,616L488,607L506,598L507,596L511,595L521,588L570,635L572,635L579,628L579,626L616,588L566,541L578,521L589,492L594,470L596,436L593,408L585,379L573,353L560,335L560,332L566,327L566,325L573,319L573,317L579,312L579,310L586,304L586,302L593,296L593,294L605,281L593,270L591,270L585,263L583,263L577,256L575,256L570,250L568,250L562,243L560,243L556,238Z"/>
+  </symbol>
+</svg>
+<!-- ============ HEADER ============ -->
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Alpha International, home">
+      <svg class="mark" viewBox="0 0 522 546" aria-hidden="true" focusable="false"><use href="#mark"/></svg>
+      <svg class="wordmark" viewBox="0 0 2051 330" aria-hidden="true" focusable="false" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><g transform="translate(0,330) scale(0.1,-0.1)"><path d="M1100 1668 l-1035 -1612 -3 -8 -4 -8 379 0 378 0 276 427 277 428 764 3 764 2 283 -430 284 -430 379 0 379 0 -7 13 -8 12 -1029 1600 -1030 1600 -6 7 -6 7 -1035 -1611z m1235 116 l184 -289 -381 -3 -381 -2 -4 4 -4 3 192 297 192 297 9 -9 8 -8 185 -290z M17385 1853 l-910 -1417 -127 -198 -127 -198 381 2 382 3 275 427 276 428 763 0 763 0 284 -430 284 -430 380 0 380 0 -317 492 -318 493 -723 1123 -723 1122 -6 0 -7 0 -910 -1417z m1109 -58 l188 -296 -4 -5 -5 -4 -380 2 -380 3 191 297 191 297 5 0 5 1 189 -295z M4790 1540 l0 -1500 1475 0 1475 0 0 290 0 290 -1150 0 -1150 0 0 1210 0 1210 -325 0 -325 0 0 -1500z M8400 1540 l0 -1500 320 0 320 0 0 624 0 625 708 4 707 3 90 17 91 16 89 26 90 26 68 29 69 29 71 42 72 42 85 86 86 86 41 80 42 81 21 74 21 75 6 106 6 106 -12 83 -13 83 -25 71 -25 71 -43 70 -43 70 -69 66 -68 66 -59 38 -60 38 -70 32 -71 33 -85 27 -85 26 -110 21 -110 22 -1027 3 -1028 4 0 -1501z m2083 887 l59 -17 49 -21 49 -21 38 -42 39 -43 13 -37 12 -38 -4 -64 -4 -64 -30 -42 -30 -43 -46 -31 -46 -31 -81 -22 -80 -22 -128 -9 -128 -9 -562 -1 -563 0 0 291 0 290 693 -3 692 -4 58 -17z M12150 1540 l0 -1500 315 0 315 0 0 655 0 655 1115 0 1115 0 0 -655 0 -655 320 0 320 0 0 1500 0 1500 -320 0 -320 0 0 -550 0 -550 -1115 0 -1115 0 0 550 0 550 -315 0 -315 0 0 -1500z"/></g></svg>
+      <span class="div" aria-hidden="true"></span>
+      <span class="sub">International</span>
+    </a>
+    <button class="mtoggle" id="menu-toggle" type="button" aria-label="Menu" aria-expanded="false" aria-controls="primary-nav"><i></i><i></i><i></i></button>
+    <nav class="nav" id="primary-nav" aria-label="Primary">
+      <a href="#opportunity">Opportunity</a>
+      <a href="#record">Track record</a>
+      <a href="#mandate">Global mandate</a>
+      <a href="#platform">Platform</a>
+      <a href="#team">Team</a>
+      <a href="/news/">News</a>
+      <a class="btn" href="#contact">Investor briefing <span class="ar" aria-hidden="true">→</span></a>
+    </nav>
+  </div>
+</header>
 
-  <main>
-    <img class="logo" src="assets/logo.png" alt="Alpha International" width="2640" height="840">
+<main id="top">
 
-    <p class="eyebrow"><span class="pulse" aria-hidden="true"></span>Under Construction</p>
-
-    <h1>Something <span class="accent">strong</span> is being built.</h1>
-
-    <p class="lede">
-      Our new home online is in development. We're putting the finishing touches
-      on it now &mdash; check back shortly.
-    </p>
-
-    <div class="track" role="img" aria-label="Site in progress">
-      <span></span>
+<!-- ============ HERO ============ -->
+<section class="hero" aria-labelledby="h-hero">
+  <div class="wrap grid">
+    <div>
+      <div class="eyebrow">Global conventional oil &nbsp;·&nbsp; Engineering-led value</div>
+      <h1 id="h-hero"><span class="beta">Oil price is beta.</span><br>Engineering is <em>Alpha.</em></h1>
+      <p class="lede">We acquire mature oil fields the market has written down to their decline curve, then apply major-company reservoir engineering to produce what the rock can actually deliver. The same method has turned around fields from Western Siberia to the US Gulf Coast.</p>
+      <div class="ctas">
+        <a class="btn" href="#contact">Request the investor briefing <span class="ar" aria-hidden="true">→</span></a>
+        <a class="btn ghost" href="#record">See the track record</a>
+      </div>
     </div>
-  </main>
 
-  <footer>
-    &copy; <span id="year">2026</span> Alpha International. All rights reserved.
-  </footer>
+    <figure class="chart" aria-label="Illustrative chart: a mature field's production follows the seller's decline case until acquisition, after which the engineered case lifts production well above it. The area between the two curves is the value Alpha targets.">
+      <div class="ch-head"><b>Same field. Two futures.</b><span>Illustrative</span></div>
+      <svg viewBox="0 0 560 330" role="img" aria-hidden="true">
+        <g stroke="rgba(255,255,255,.08)" stroke-width="1">
+          <line x1="40" y1="80" x2="520" y2="80"/><line x1="40" y1="150" x2="520" y2="150"/><line x1="40" y1="220" x2="520" y2="220"/>
+        </g>
+        <line x1="40" y1="300" x2="520" y2="300" stroke="rgba(255,255,255,.35)" stroke-width="1"/>
+        <line x1="40" y1="40" x2="40" y2="300" stroke="rgba(255,255,255,.35)" stroke-width="1"/>
+        <text x="40" y="322" fill="#8FA5B8" font-family="Inter,sans-serif" font-size="11" letter-spacing="1.5">TIME →</text>
+        <text x="30" y="44" fill="#8FA5B8" font-family="Inter,sans-serif" font-size="11" letter-spacing="1.5" text-anchor="end" transform="rotate(-90 30 44)">PRODUCTION</text>
+        <line x1="200" y1="40" x2="200" y2="300" stroke="#B5894A" stroke-width="1" stroke-dasharray="3 4"/>
+        <text x="206" y="54" fill="#B5894A" font-family="Inter,sans-serif" font-size="10.5" font-weight="600" letter-spacing="1.6">ALPHA ACQUIRES</text>
+        <path class="gapfill" fill="rgba(27,141,209,.20)" d="M200,193.7 L208,180.3 L216,168.3 L224,157.7 L232,148.3 L240,140.0 L248,132.6 L256,126.0 L264,120.2 L272,115.1 L280,110.5 L288,106.5 L296,103.0 L304,99.9 L312,97.1 L320,94.7 L328,92.7 L336,90.8 L344,89.3 L352,87.9 L360,86.7 L368,85.7 L376,84.8 L384,84.1 L392,83.5 L400,83.0 L408,82.6 L416,82.3 L424,82.1 L432,81.9 L440,81.8 L448,81.8 L456,81.8 L464,81.8 L472,81.9 L480,82.0 L488,82.2 L496,82.4 L504,82.6 L512,82.8 L520,83.0 L520,275.2 L512,274.3 L504,273.3 L496,272.3 L488,271.3 L480,270.2 L472,269.1 L464,268.0 L456,266.8 L448,265.6 L440,264.3 L432,263.0 L424,261.6 L416,260.2 L408,258.7 L400,257.2 L392,255.6 L384,253.9 L376,252.2 L368,250.5 L360,248.6 L352,246.7 L344,244.8 L336,242.7 L328,240.6 L320,238.4 L312,236.1 L304,233.7 L296,231.3 L288,228.7 L280,226.1 L272,223.4 L264,220.5 L256,217.6 L248,214.5 L240,211.4 L232,208.1 L224,204.7 L216,201.1 L208,197.5 L200,193.7 Z"/>
+        <path fill="none" stroke="#FFFFFF" stroke-width="2" d="M40,80.0 L48,87.9 L56,95.4 L64,102.7 L72,109.8 L80,116.6 L88,123.1 L96,129.4 L104,135.5 L112,141.4 L120,147.1 L128,152.5 L136,157.8 L144,162.9 L152,167.8 L160,172.5 L168,177.0 L176,181.4 L184,185.7 L192,189.8 L200,193.7"/>
+        <path fill="none" stroke="#8FA5B8" stroke-width="1.6" stroke-dasharray="5 5" d="M200,193.7 L208,197.5 L216,201.1 L224,204.7 L232,208.1 L240,211.4 L248,214.5 L256,217.6 L264,220.5 L272,223.4 L280,226.1 L288,228.7 L296,231.3 L304,233.7 L312,236.1 L320,238.4 L328,240.6 L336,242.7 L344,244.8 L352,246.7 L360,248.6 L368,250.5 L376,252.2 L384,253.9 L392,255.6 L400,257.2 L408,258.7 L416,260.2 L424,261.6 L432,263.0 L440,264.3 L448,265.6 L456,266.8 L464,268.0 L472,269.1 L480,270.2 L488,271.3 L496,272.3 L504,273.3 L512,274.3 L520,275.2"/>
+        <path class="draw" fill="none" stroke="#1B8DD1" stroke-width="3" stroke-linejoin="round" d="M200,193.7 L208,180.3 L216,168.3 L224,157.7 L232,148.3 L240,140.0 L248,132.6 L256,126.0 L264,120.2 L272,115.1 L280,110.5 L288,106.5 L296,103.0 L304,99.9 L312,97.1 L320,94.7 L328,92.7 L336,90.8 L344,89.3 L352,87.9 L360,86.7 L368,85.7 L376,84.8 L384,84.1 L392,83.5 L400,83.0 L408,82.6 L416,82.3 L424,82.1 L432,81.9 L440,81.8 L448,81.8 L456,81.8 L464,81.8 L472,81.9 L480,82.0 L488,82.2 L496,82.4 L504,82.6 L512,82.8 L520,83.0"/>
+        <circle cx="200" cy="193.7" r="4" fill="#B5894A"/>
+        <g class="glabel">
+          <text x="400" y="178" fill="#FFFFFF" font-family="Cormorant Garamond,Georgia,serif" font-size="22" font-style="italic" text-anchor="middle">The Alpha gap</text>
+          <text x="400" y="196" fill="#C5D2DD" font-family="Inter,sans-serif" font-size="10.5" letter-spacing="1.2" text-anchor="middle">VALUE THE MARKET DOESN'T PRICE</text>
+        </g>
+        <text x="516" y="70" fill="#1B8DD1" font-family="Inter,sans-serif" font-size="11" font-weight="600" text-anchor="end">Engineered case</text>
+        <text x="516" y="293" fill="#8FA5B8" font-family="Inter,sans-serif" font-size="11" text-anchor="end">Seller's decline case</text>
+      </svg>
+      <div class="legend">
+        <span><i></i>Engineered case</span>
+        <span><i class="s"></i>Seller's decline case</span>
+        <span><i class="g"></i>Upside the market leaves unpriced</span>
+      </div>
+    </figure>
+  </div>
+  <div class="tagline">
+    <div class="wrap">
+      <p>MORE ENERGY, FOR MORE PEOPLE, AT LESS COST.</p>
+      <span>Americas &nbsp;·&nbsp; Africa &nbsp;·&nbsp; Middle East</span>
+    </div>
+  </div>
+</section>
 
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
+<!-- ============ PROOF BAND ============ -->
+<section class="proof" aria-label="Track record at a glance">
+  <div class="wrap">
+    <div class="p">
+      <div class="n tab">+1<small>MMbopd</small></div>
+      <p class="k">Added from existing fields at Yukos in five years, with no major new discoveries.</p>
+      <p class="w">Yukos · 1999–2004</p>
+    </div>
+    <div class="p">
+      <div class="n tab">15×</div>
+      <p class="k">Production growth on a neglected asset, taken from buyout to a London Stock Exchange IPO.</p>
+      <p class="w">Ruspetro · 2008–2013</p>
+    </div>
+    <div class="p">
+      <div class="n tab">+67%</div>
+      <p class="k">Adjusted cash from operations in one year, while gas prices fell 30%.</p>
+      <p class="w">JKX Oil &amp; Gas · 2015–2016</p>
+    </div>
+    <div class="p">
+      <div class="n tab">4.3×</div>
+      <p class="k">Production increase within months of acquisition, with operating cost per barrel cut in half.</p>
+      <p class="w">Parker Creek · 2024</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 01 OPPORTUNITY ============ -->
+<section class="s" id="opportunity" aria-labelledby="h-opp">
+  <div class="wrap">
+    <div class="shead">
+      <div>
+        <span class="num">01 <b>/ The opportunity</b></span>
+        <h2 id="h-opp">The most mispriced barrels in the world are the ones <em>already found.</em></h2>
+      </div>
+      <p>Mature fields are changing hands. Generalist capital buys them on the only thing it can underwrite: the next three years of existing cash flow, minus the cost of plugging the wells. The rest of the reservoir, including bypassed pay, undeveloped locations and secondary recovery, changes hands at close to zero.</p>
+    </div>
+
+    <div class="vals" role="group" aria-label="Three valuations of the same conventional field, illustrative">
+      <div class="val">
+        <span class="who">What the seller markets</span>
+        <h3>Reserve report value</h3>
+        <div class="stack" aria-hidden="true">
+          <div class="seg ghost" style="flex:0 0 38%">Undeveloped reserves, seller case</div>
+          <div class="seg pdp" style="flex:0 0 36%">Producing reserves</div>
+        </div>
+        <p class="res"><b>Full asking price</b>Undeveloped upside is asserted but not engineered.</p>
+      </div>
+      <div class="val">
+        <span class="who">What generalist capital pays</span>
+        <h3>Cash-flow-only value</h3>
+        <div class="stack" aria-hidden="true">
+          <div class="seg pdp" style="flex:0 0 36%">36 months of cash flow</div>
+          <div class="seg aro" style="flex:0 0 26%">Less: well abandonment, treated as debt</div>
+        </div>
+        <p class="res"><b>Thin or negative equity</b>This is why majors are exiting, and why the price is low.</p>
+      </div>
+      <div class="val">
+        <span class="who">What Alpha engineers</span>
+        <h3>Engineered value</h3>
+        <div class="stack" aria-hidden="true">
+          <div class="seg eor" style="flex:0 0 17%">Waterflood &amp; enhanced recovery</div>
+          <div class="seg acc" style="flex:0 0 25%">New wells, modern completions</div>
+          <div class="seg acc" style="flex:0 0 14%;background:#1679B4">Faster production from existing wells</div>
+          <div class="seg pdp" style="flex:0 0 22%">Confirmed producing reserves</div>
+          <div class="seg aro" style="flex:0 0 12%">Abandonment, pushed further out</div>
+        </div>
+        <p class="res"><b>Multiples of the entry equity</b>Built from the same rock, the same wellbores and better engineering.</p>
+      </div>
+    </div>
+    <div class="vnote"><span>Illustrative. Segments show composition, not scale.</span><span>Source: Alpha Energy Asset Assessment Protocol, 2026.</span></div>
+
+    <div class="thesis">
+      <span class="bar" aria-hidden="true"></span>
+      <p>Buy at the price generalist capital will pay. <em>Operate to the value engineering can deliver.</em> That gap is the investment thesis.</p>
+    </div>
+
+    <div class="why">
+      <div>
+        <div class="n tab">~50%</div>
+        <p class="k">Fall in US onshore conventional oil output since 2014. Capital and engineering talent followed shale. The oil stayed in the ground.</p>
+      </div>
+      <div>
+        <div class="n tab">~11,000</div>
+        <p class="k">Private operators in US conventional oil and gas. About 85% produce under 100 barrels of oil equivalent a day. Nobody is consolidating the long tail.</p>
+      </div>
+      <div>
+        <div class="n tab">$25B</div>
+        <p class="k">In publicly reported conventional deals since 2022, as majors and PE funds exit non-core fields. The same pattern is repeating in basins worldwide.</p>
+      </div>
+    </div>
+    <p class="src">Sources: Energy Advisors Group, 2025 Conventional Perspectives; Enverus; company disclosures. Deal value covers 2022 through Q1 2025.</p>
+  </div>
+</section>
+
+<!-- ============ 02 EDGE ============ -->
+<section class="s" id="edge" aria-labelledby="h-edge">
+  <div class="wrap">
+    <div class="shead">
+      <div>
+        <span class="num">02 <b>/ The edge</b></span>
+        <h2 id="h-edge">Buying cheap is an opportunity. <em>Engineering is a strategy.</em></h2>
+      </div>
+      <p>Anyone with capital can show up to an auction. A real edge has to repeat on every deal, grow with the portfolio, and hold up when the market turns. Market access gets Alpha into the room. Engineering is why the numbers come out differently.</p>
+    </div>
+
+    <div class="edge">
+      <div>
+        <div class="access">
+          <div class="row"><span class="n tab">200+</span><span class="k"><b>Assets reviewed</b>in the last five years, brokered and off-market</span></div>
+          <div class="row"><span class="n tab">100+</span><span class="k"><b>Confidentiality agreements</b>signed and carried into serious diligence</span></div>
+          <!-- <div class="row"><span class="n" style="font-size:22px;min-width:0">ExxonMobil Trading</span><span class="k">Commercial offtake and working-capital support</span></div>
+          <div class="row"><span class="n" style="font-size:22px;min-width:0">Halliburton</span><span class="k">Technical partner, with equipment and engineering alongside operations</span></div>
+           --><div class="cap">Market access is the cost of admission. It is not the edge.</div>
+        </div>
+      </div>
+      <div>
+        <div class="tblwrap">
+          <table class="cmp">
+            <thead>
+              <tr><th scope="col">What makes an edge</th><th scope="col">Cash &amp; certainty</th><th scope="col">"Cheap" private deal</th><th scope="col" class="us">Reservoir engineering</th></tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row">Repeats on every deal</th><td><span class="pip h"></span>Usually</td><td><span class="pip"></span>Rarely</td><td class="us"><span class="pip y"></span>Always</td></tr>
+              <tr><th scope="row">Size of the advantage</th><td>Capped</td><td>Episodic</td><td class="us">Compounds</td></tr>
+              <tr><th scope="row">Grows with the portfolio</th><td><span class="pip h"></span>Limited</td><td><span class="pip"></span>No</td><td class="us"><span class="pip y"></span>Yes</td></tr>
+              <tr><th scope="row">Hard to copy</th><td><span class="pip"></span>No</td><td><span class="pip"></span>No</td><td class="us"><span class="pip y"></span>Skills and data</td></tr>
+              <tr><th scope="row">Holds through the cycle</th><td><span class="pip"></span>No</td><td><span class="pip"></span>No</td><td class="us"><span class="pip y"></span>Largely</td></tr>
+              <tr><th scope="row">Open to any allocator</th><td>Yes</td><td>Sometimes</td><td class="us">No. Most lack the skills</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="edge-close">Cheap deals depend on someone else's circumstance. <em>Engineering depends on us.</em></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 03 TRACK RECORD ============ -->
+<section class="s" id="record" aria-labelledby="h-rec">
+  <div class="wrap">
+    <div class="shead">
+      <div>
+        <span class="num">03 <b>/ Track record</b></span>
+        <h2 id="h-rec">One method, proven at the largest scale <em>in the industry.</em></h2>
+      </div>
+      <p>The approach began as Nodal Analysis, first written up for the Society of Petroleum Engineers. It treats every field as one connected system and removes the bottlenecks between the rock and the sales point. Alpha's leadership has applied it for more than twenty-five years.</p>
+    </div>
+
+    <div class="lineage">
+      <article class="case">
+        <span class="yr tab">1999 – 2004</span>
+        <h3>Yukos</h3>
+        <p class="who">Led by Joe Mach and Don Wolcott, with Chris Hopkinson</p>
+        <div class="big tab">+1 MMbopd</div>
+        <p class="bigk">Added in five years, roughly the output of Libya or Indonesia</p>
+        <ul>
+          <li>Around 900 field development plans rebuilt</li>
+          <li>Average well output up about 4×, from 65 to 258 bopd</li>
+          <li>Lowest lifting cost of any major by 2004</li>
+        </ul>
+        <span class="tag">Established the method</span>
+      </article>
+      <article class="case">
+        <span class="yr tab">2008 – 2013</span>
+        <h3>Ruspetro</h3>
+        <p class="who">Tom Reed as CEO and CFO, with Mach and Wolcott</p>
+        <div class="big tab">15×</div>
+        <p class="bigk">Production growth, from 307 to 4,791 boepd</p>
+        <ul>
+          <li>Leveraged buyout of a neglected Russian asset</li>
+          <li>$250M IPO on the London Stock Exchange, 2012</li>
+          <li>FTSE 250 inclusion the same year</li>
+        </ul>
+        <span class="tag">Repeated it</span>
+      </article>
+      <article class="case">
+        <span class="yr tab">2015 – 2016</span>
+        <h3>JKX Oil &amp; Gas</h3>
+        <p class="who">Tom Reed as CEO of the UK-listed Ukrainian operator</p>
+        <div class="big tab">+67%</div>
+        <p class="bigk">Adjusted cash from operations, into a falling market</p>
+        <ul>
+          <li>Production up 12% on nominal capital spend</li>
+          <li>Gas price down 30%, oil price down 8%</li>
+          <li>Premium-listing reporting and controls</li>
+        </ul>
+        <span class="tag">Proved it portable</span>
+      </article>
+      <article class="case live">
+        <span class="yr tab">2024 – today</span>
+        <h3>Parker Creek</h3>
+        <p class="who">Alpha-managed, US Gulf Coast. Acquired February 2024</p>
+        <div class="big tab">4.3×</div>
+        <p class="bigk">Production over the pre-Alpha baseline by July 2024</p>
+        <ul>
+          <li>About 1,000 net bopd by July 2024</li>
+          <li>Net operating cost cut from $11 to $5 per barrel</li>
+          <li>Three sidetracks and an electric submersible pump did the work</li>
+        </ul>
+        <span class="tag">Alpha's live result</span>
+      </article>
+    </div>
+
+    <div class="lift">
+      <div>
+        <h3>Lifting cost per barrel, 2004</h3>
+        <p class="sub">When the engineering is right, cost becomes the moat.</p>
+        <div class="bars" role="img" aria-label="Lifting cost per barrel at end of 2004: Yukos 1.54 dollars, BP 2.99, ExxonMobil 4.15, ChevronTexaco 4.59.">
+          <div class="b us"><span>Yukos</span><span class="t"><i style="width:33.5%"></i></span><em>$1.54</em></div>
+          <div class="b"><span>BP</span><span class="t"><i style="width:65.1%"></i></span><em>$2.99</em></div>
+          <div class="b"><span>ExxonMobil</span><span class="t"><i style="width:90.4%"></i></span><em>$4.15</em></div>
+          <div class="b"><span>ChevronTexaco</span><span class="t"><i style="width:100%"></i></span><em>$4.59</em></div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;justify-content:center">
+        <p class="quote">All organic. No new discoveries and limited drilling. Thirteen years of decline reversed through engineering alone.</p>
+        <p class="cite">Yukos, 1999–2004</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 04 GLOBAL MANDATE ============ -->
+<section class="s dark" id="mandate" aria-labelledby="h-man">
+  <div class="wrap">
+    <div class="shead">
+      <div>
+        <span class="num">04 <b>/ Global mandate</b></span>
+        <h2 id="h-man">The method is portable. <em>The mandate follows the mispricing.</em></h2>
+      </div>
+      <p>Alpha works where recovery from mature conventional fields has become a national priority and where the capital gap is widest. The same first-principles filter applies in every jurisdiction.</p>
+    </div>
+
+    <div class="regions">
+      <article class="reg lead">
+        <span class="st on">Active</span>
+        <h3>Latin America</h3>
+        <p class="where">Lake Maracaibo, Venezuela</p>
+        <p>The Alpha Latin America platform works under a production-partnership framework with PDVSA for Lake Maracaibo brownfields and the Travi gas field. Most of Venezuela's lost output was conventional light and medium crude, which makes it a reactivation problem that engineering can solve.</p>
+        <div class="kpi">
+          <div><span>Current baseline</span><b class="tab">~35,000 bopd</b></div>
+          <div><span>Plateau target</span><b class="tab">~300,000 bopd</b></div>
+          <div><span>Authorization</span><b>OFAC GL 52 &amp; 56</b></div>
+        </div>
+        <a class="more" href="https://alphalatinamerica.com" rel="noopener">alphalatinamerica.com →</a>
+      </article>
+      <article class="reg">
+        <span class="st on">Active</span>
+        <h3>North America</h3>
+        <p class="where">US conventional basins</p>
+        <p>Parker Creek on the Gulf Coast is the live proof point. Alpha targets the $100–500 million deal range, where majors and private equity funds are selling and few buyers bring engineering teams.</p>
+        <div class="kpi">
+          <div><span>Assets reviewed</span><b class="tab">200+</b></div>
+          <div><span>Focus</span><b>Small &amp; mid-cap</b></div>
+        </div>
+      </article>
+      <article class="reg">
+        <span class="st">Developing</span>
+        <h3>Africa &amp; North Africa</h3>
+        <p class="where">Mature conventional basins</p>
+        <p>Legacy giant fields in secondary and tertiary recovery, which is exactly the profile the method was built for. As state oil companies and majors hand over fields, well-defined acquisition and technical-mandate targets are emerging.</p>
+        <div class="kpi">
+          <div><span>Entry route</span><b>Acquisition &amp; mandate</b></div>
+        </div>
+      </article>
+      <article class="reg">
+        <span class="st">Selective</span>
+        <h3>Middle East</h3>
+        <p class="where">Technical mandates &amp; JVs</p>
+        <p>Where technical mandates and joint-venture positions open to independents with a proven record. Field-service and technical-partner routes come before equity, on a long horizon.</p>
+        <div class="kpi">
+          <div><span>Entry route</span><b>Technical partner first</b></div>
+        </div>
+      </article>
+    </div>
+
+    <div class="filter">
+      <h3>Jurisdiction never overrides the method.</h3>
+      <ol>
+        <li>Contract structures that ring-fence engineering upside for capital providers</li>
+        <li>Data good enough for independent reservoir work</li>
+        <li>An operating environment where interventions can actually be carried out</li>
+        <li>Full compliance with applicable sanctions and licensing regimes</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 05 PLATFORM ============ -->
+<section class="s" id="platform" aria-labelledby="h-plat">
+  <div class="wrap">
+    <div class="shead">
+      <div>
+        <span class="num">05 <b>/ Platform</b></span>
+        <h2 id="h-plat">Big-company tools. <em>Smaller fields.</em></h2>
+      </div>
+      <p>The Alpha Technical Center, a wholly owned Alpha Energy company, gives every asset the engineering a major would give its flagship field. Smaller fields are where that engineering is scarcest, so they are where it adds the most per barrel.</p>
+    </div>
+
+    <div class="plat">
+      <div>
+        <div class="scale-cmp">
+          <div class="r">
+            <div><span class="lbl">Where majors apply it</span><p class="desc">Integrated simulation, network hydraulics and coupled economics as standard</p></div>
+            <span class="v tab">500,000<small>boepd</small></span>
+          </div>
+          <div class="r">
+            <div><span class="lbl">Where Alpha applies it</span><p class="desc">Fields too small to carry the specialist teams and software licenses in-house</p></div>
+            <span class="v tab">5,000<small>boepd</small></span>
+          </div>
+        </div>
+        <div class="twice">
+          <span class="x">2×</span>
+          <p><b>Monetized twice.</b> The platform works on Alpha's own assets and on third-party technical mandates, which also build market intelligence and a pipeline of acquisition targets.</p>
+        </div>
+      </div>
+      <div>
+        <div class="disc">
+          <div><h3>Reservoir &amp; production</h3><p>Full-physics reservoir models, production forecasting and well-by-well performance optimization, not just on anchor wells.</p></div>
+          <div><h3>Financial modeling</h3><p>Transparent, auditable cash-flow models with fiscal regimes, sensitivities and risked cases that investors can follow.</p></div>
+          <div><h3>Technical due diligence</h3><p>Buy-side pressure testing: risk evaluation, upside identification and independent operator review.</p></div>
+        </div>
+        <div class="tools" aria-label="Proprietary tools">
+          <span>APEX 3D Reservoir Model</span>
+          <span>APEX Asset Intelligence</span>
+          <span>Nodal Analysis Optimizer</span>
+          <span>Quick-Look Economics</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 06 TEAM ============ -->
+<section class="s" id="team" aria-labelledby="h-team">
+  <div class="wrap">
+    <div class="shead">
+      <div>
+        <span class="num">06 <b>/ Principals</b></span>
+        <h2 id="h-team">Operators who have <em>done this before.</em></h2>
+      </div>
+      <p>Careers spanning Yukos, TNK-BP, BG Group, Gazprom, KazMunayGas and Lukoil, and independent turnarounds from Russia to North Africa to Latin America.</p>
+    </div>
+
+    <div class="team">
+      <article class="pp">
+        <div class="mono" aria-hidden="true">TR</div>
+        <h3>Tom Reed</h3>
+        <span class="role">CEO</span>
+        <p>Serial CEO of engineering-led turnarounds across Russia, Ukraine and Eastern Europe, with more than twenty years building companies from concept to IPO.</p>
+        <ul>
+          <li>CEO and CFO, Ruspetro plc. LSE IPO, FTSE 250</li>
+          <li>CEO, JKX Oil &amp; Gas plc. UK Premium List</li>
+          <li>CEO, Texas Petroleum Investment Company</li>
+        </ul>
+      </article>
+      <article class="pp">
+        <div class="mono" aria-hidden="true">CH</div>
+        <h3>Chris Hopkinson</h3>
+        <span class="role">CTO</span>
+        <p>More than thirty years of senior upstream leadership, from super-major to independent, with a direct line to the Yukos engineering culture.</p>
+        <ul>
+          <li>COO, KazMunayGas</li>
+          <li>SVP North Africa, BG Group · VP West Siberia, TNK-BP</li>
+          <li>CEO, Imperial Energy, through its sale to ONGC</li>
+        </ul>
+      </article>
+      <article class="pp">
+        <div class="mono" aria-hidden="true">CG</div>
+        <h3>Christophe Gerard</h3>
+        <span class="role">COO</span>
+        <p>Reservoir engineer with 25 years of international field studies and new ventures across Libya, Iran, Azerbaijan, Russia and Venezuela.</p>
+        <ul>
+          <li>VP Exploration &amp; New Ventures, Gazprom EP International</li>
+          <li>MD Operations &amp; Business Development, GPB Global Resources</li>
+          <li>Reservoir engineer, Beicip-Franlab (IFP)</li>
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CREED ============ -->
+<section class="creed" aria-labelledby="h-creed">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">How Alpha thinks</span>
+      <h2 id="h-creed">"Why?" and <em>"Why not?"</em></h2>
+      <p class="lead">We start from what is physically possible in the reservoir, then work out why current performance falls short. Experience tells us where data can mislead. It does not set our targets. The goal is return on investment, not engineering for its own sake.</p>
+    </div>
+    <ul class="tenets">
+      <li><b>First principles</b>Every target is calculated from the rock and the wellbore, not last year's budget plus a few percent.</li>
+      <li><b>Performance, not expectations</b>We manage to what the field can do, and report openly when we miss.</li>
+      <li><b>Adapt to the world</b>We adjust to events and prices instead of betting on them. Price is beta. Engineering is Alpha.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ 07 CONTACT ============ -->
+<section class="s" id="contact" aria-labelledby="h-con">
+  <div class="wrap contact">
+    <div>
+      <span class="eyebrow">07 &nbsp;/&nbsp; Investor relations</span>
+      <h2 id="h-con" style="margin-top:18px">Speak with <em>the principals.</em></h2>
+      <p class="lead">Briefings cover Alpha's approach to assessing, acquiring and operating mature conventional fields, and are held with institutional and accredited investors, family offices and strategic partners.</p>
+    </div>
+    <div class="card">
+      <div class="row">
+        <span class="lbl">Investor enquiries</span>
+        <span class="val2">
+          <a class="btn" href="/contact">Contact us <span class="ar" aria-hidden="true">→</span></a>
+        </span>
+      </div>
+      <div class="row">
+        <span class="lbl">Group</span>
+        <span class="val2"><a href="https://alpha.energy" rel="noopener">alpha.energy</a></span>
+      </div>
+      <div class="row">
+        <span class="lbl">Latin America</span>
+        <span class="val2"><a href="https://alphalatinamerica.com" rel="noopener">alphalatinamerica.com</a></span>
+      </div>
+      <div class="row"><p class="note">Nothing on this site is an offer to sell or a solicitation to buy any security. Any offering is made only through definitive documents to eligible investors.</p></div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <span class="contain"><svg class="mark" viewBox="0 0 522 546" aria-hidden="true" focusable="false"><use href="#mark"/></svg><svg class="wordmark" viewBox="0 0 2051 330" role="img" aria-label="Alpha International" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><g transform="translate(0,330) scale(0.1,-0.1)"><path d="M1100 1668 l-1035 -1612 -3 -8 -4 -8 379 0 378 0 276 427 277 428 764 3 764 2 283 -430 284 -430 379 0 379 0 -7 13 -8 12 -1029 1600 -1030 1600 -6 7 -6 7 -1035 -1611z m1235 116 l184 -289 -381 -3 -381 -2 -4 4 -4 3 192 297 192 297 9 -9 8 -8 185 -290z M17385 1853 l-910 -1417 -127 -198 -127 -198 381 2 382 3 275 427 276 428 763 0 763 0 284 -430 284 -430 380 0 380 0 -317 492 -318 493 -723 1123 -723 1122 -6 0 -7 0 -910 -1417z m1109 -58 l188 -296 -4 -5 -5 -4 -380 2 -380 3 191 297 191 297 5 0 5 1 189 -295z M4790 1540 l0 -1500 1475 0 1475 0 0 290 0 290 -1150 0 -1150 0 0 1210 0 1210 -325 0 -325 0 0 -1500z M8400 1540 l0 -1500 320 0 320 0 0 624 0 625 708 4 707 3 90 17 91 16 89 26 90 26 68 29 69 29 71 42 72 42 85 86 86 86 41 80 42 81 21 74 21 75 6 106 6 106 -12 83 -13 83 -25 71 -25 71 -43 70 -43 70 -69 66 -68 66 -59 38 -60 38 -70 32 -71 33 -85 27 -85 26 -110 21 -110 22 -1027 3 -1028 4 0 -1501z m2083 887 l59 -17 49 -21 49 -21 38 -42 39 -43 13 -37 12 -38 -4 -64 -4 -64 -30 -42 -30 -43 -46 -31 -46 -31 -81 -22 -80 -22 -128 -9 -128 -9 -562 -1 -563 0 0 291 0 290 693 -3 692 -4 58 -17z M12150 1540 l0 -1500 315 0 315 0 0 655 0 655 1115 0 1115 0 0 -655 0 -655 320 0 320 0 0 1500 0 1500 -320 0 -320 0 0 -550 0 -550 -1115 0 -1115 0 0 550 0 550 -315 0 -315 0 0 -1500z"/></g></svg></span>
+        <p class="tl">MORE ENERGY, FOR MORE PEOPLE,<br>AT LESS COST.</p>
+      </div>
+      <div>
+        <h4>Alpha Energy group</h4>
+        <ul>
+          <li><a href="https://alpha.energy" rel="noopener">Alpha Energy</a><span>Corporate</span></li>
+          <li><a href="https://alphalatinamerica.com" rel="noopener">Alpha Latin America</a><span>Lake Maracaibo platform</span></li>
+          <li><a href="#platform">Alpha Technical Center</a><span>Engineering platform</span></li>
+        </ul>
+      </div>
+      <div>
+        <h4>On this site</h4>
+        <ul>
+          <li><a href="#opportunity">The opportunity</a></li>
+          <li><a href="#record">Track record</a></li>
+          <li><a href="#mandate">Global mandate</a></li>
+          <li><a href="/news/">News</a></li>
+          <li><a href="#contact">Investor relations</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="legal">
+      <p><b>Important information.</b> This website is provided for general information and education only. It does not constitute an offer to sell, or a solicitation of an offer to buy, any security or interest in any fund or company, and must not be relied on in connection with any investment decision.</p>
+      <p>Results described for Yukos, Ruspetro and JKX Oil &amp; Gas were achieved at companies other than Alpha International, by teams that included current Alpha principals. Past performance is not a guide to future results. Charts marked "illustrative" show concepts, not forecasts. Statements about targets and plans are forward-looking and subject to risks and uncertainties, including commodity prices, regulation and operating conditions.</p>
+      <p>Alpha's activities in Venezuela are conducted in accordance with applicable U.S. sanctions regulations, including OFAC General Licenses 52 and 56.</p>
+    </div>
+    <div class="colo">
+      <span>© <span id="yr">2026</span> Alpha International</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/site.js" defer></script>
 </body>
 </html>
