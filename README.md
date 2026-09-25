@@ -17,18 +17,23 @@ clean diff. The open items below are not yet addressed.
 ```
 .
 ├── public/             # Everything in here is served as-is by the Worker
-│   ├── index.html      # The whole site: one page, inline CSS and SVG
+│   ├── index.html      # Homepage, served at /
+│   ├── contact.html    # Contact page, served at /contact
 │   ├── robots.txt
 │   ├── _headers        # Security + cache headers
 │   └── assets/
-│       └── logo.png    # Circular mark + wordmark. Currently UNUSED (see below)
+│       ├── site.css    # All styles, shared by both pages
+│       ├── site.js     # Footer year, mobile menu, contact form
+│       ├── mark.svg    # Circular mark, traced from logo.png. Favicon + chrome
+│       └── logo.png    # Full lockup, 2640x840. Used for og:image
 ├── wrangler.jsonc      # Worker + custom domain config
 └── package.json
 ```
 
-`index.html` is fully self-contained — no `<img>` tags, every graphic is inline
-SVG, all CSS is in one `<style>` block. The only external request is Google
-Fonts. That keeps it to a single 60KB document.
+Styles and behaviour live in `assets/site.css` and `assets/site.js`, shared by
+both pages so they cannot drift apart. Every graphic is still inline SVG — there
+are no `<img>` tags anywhere. The header and footer *markup* is duplicated in the
+two HTML files, since there is no build step; keep them in step by hand.
 
 This is an **assets-only Worker** — there is no `main` script, so Cloudflare
 serves `public/` directly with no code in the request path. Add a `main` entry
@@ -65,10 +70,12 @@ npm run tail         # live request logs
 
 ### Needs a decision or sign-off, not a code change
 
-- **Contact address.** The page uses `info@alpha.energy` and links out to
-  `alpha.energy` and `alphalatinamerica.com`. Confirm IR mail should route to
-  the group address rather than one on this domain. It appears twice: the
-  `href` and the copy button's `data-copy`, which must stay in sync.
+- **The contact form has no destination.** `CONTACT_ENDPOINT` at the top of the
+  contact-form block in `assets/site.js` is an empty string, so the form shows a
+  "not connected" notice and its submit button is disabled. It will not silently
+  drop what someone types, but nobody can reach you through it either. Set that
+  constant to the receiving URL and both the notice and the disabled state clear
+  themselves. **This must be done before the site goes live.**
 - **Named third parties.** ExxonMobil Trading and Halliburton are presented as
   commercial and technical partners, and a production-partnership framework
   with PDVSA is described. These imply relationships those parties may want to
@@ -93,6 +100,11 @@ npm run tail         # live request logs
 - The copy button's "Copied" state change has no `aria-live` announcement.
 
 ### Polish
+
+- **The Joe Mach attribution is now inconsistent.** The track record intro no
+  longer names him, but two case cards still read "Led by Joe Mach and Don
+  Wolcott" and "with Mach and Wolcott". Decide whether the name stays or goes
+  throughout.
 
 - Section 07 uses `.eyebrow` where 01–06 use `.num`, so its label is styled
   differently from every other section.
