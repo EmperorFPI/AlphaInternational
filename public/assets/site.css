@@ -36,11 +36,12 @@
   .top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--white);border-bottom:1px solid var(--line)}
   .top .wrap{display:flex;align-items:center;justify-content:space-between;gap:24px;height:68px}
   .brand{display:flex;align-items:center;gap:14px;text-decoration:none;color:var(--carbon)}
-  .brand .wordmark{height:18px;width:auto;display:block}
+  .brand{flex:none}
+  .brand .wordmark{height:18px;width:auto;display:block;flex:none}
   /* Mark is 2.11x the wordmark's cap height in the source logo — keep that ratio. */
   .brand .mark{height:38px;width:auto;display:block;flex:none}
   .brand .div{width:1px;height:22px;background:var(--line)}
-  .brand .sub{font-size:10.5px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--steel)}
+  .brand .sub{font-size:10.5px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--steel);white-space:nowrap}
   .nav{display:flex;align-items:center;gap:28px}
 
   /* ---------- Mobile menu ---------- */
@@ -52,7 +53,7 @@
   .mtoggle[aria-expanded="true"] i:nth-child(2){opacity:0}
   .mtoggle[aria-expanded="true"] i:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
   @media (prefers-reduced-motion:reduce){.mtoggle i{transition:none}}
-  .nav a{font-size:13px;font-weight:500;text-decoration:none;color:var(--ink-soft)}
+  .nav a{font-size:13px;font-weight:500;text-decoration:none;color:var(--ink-soft);white-space:nowrap}
   .nav a:hover{color:var(--blue)}
   .nav a.btn,.nav a.btn:hover{color:var(--white)}
   .btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--sans);font-size:13px;font-weight:600;letter-spacing:.04em;text-decoration:none;padding:13px 20px;border:1px solid var(--blue);background:var(--blue);color:var(--white);transition:background .2s,color .2s,border-color .2s}
@@ -62,7 +63,14 @@
   .btn .ar{transition:transform .2s}
   .btn:hover .ar{transform:translateX(3px)}
   .top .btn{padding:10px 16px}
-  @media (max-width:940px){
+  /* Six links plus the button just misses fitting on a laptop; tighten rather
+     than let the header wrap to two lines. Must stay above the 940px block. */
+  @media (max-width:1200px){
+    .nav{gap:18px}
+    .nav a:not(.btn){font-size:12.5px}
+    .top .btn{padding:10px 14px}
+  }
+  @media (max-width:1080px){
     .mtoggle{display:flex}
     /* .top is sticky, so it is the containing block for this panel. */
     .nav{display:none;position:absolute;top:100%;left:0;right:0;z-index:19;

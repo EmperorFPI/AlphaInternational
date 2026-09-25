@@ -28,7 +28,7 @@
       if ((e.key === 'Escape' || e.key === 'Esc') && isOpen()) { setOpen(false); tog.focus(); }
     });
     // Don't let an open panel leak into the desktop layout on resize/rotate.
-    var mq = window.matchMedia('(min-width:941px)');
+    var mq = window.matchMedia('(min-width:1081px)');
     var onChange = function (e) { if (e.matches) { setOpen(false); } };
     if (mq.addEventListener) { mq.addEventListener('change', onChange); }
     else if (mq.addListener) { mq.addListener(onChange); }
