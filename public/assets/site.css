@@ -347,8 +347,10 @@
   .card .lbl{font-size:10.5px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--steel)}
   .card .val2{font-size:17px;font-weight:500;color:var(--carbon);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;word-break:break-word}
   /* These read as plain text otherwise, which hides the only direct contact route. */
-  .card .val2 a{color:var(--blue);text-decoration:none;border-bottom:1px solid rgba(27,141,209,.35);padding-bottom:1px}
-  .card .val2 a:hover,.card .val2 a:focus-visible{border-color:var(--blue)}
+  /* :not(.btn) — these rules out-rank .btn on specificity, so without it a
+     button inside a card gets blue text on its blue fill and disappears. */
+  .card .val2 a:not(.btn){color:var(--blue);text-decoration:none;border-bottom:1px solid rgba(27,141,209,.35);padding-bottom:1px}
+  .card .val2 a:not(.btn):hover,.card .val2 a:not(.btn):focus-visible{border-color:var(--blue)}
   .card .note{font-size:13px;color:var(--steel);line-height:1.55}
   @media (max-width:900px){.contact{grid-template-columns:1fr}}
 
