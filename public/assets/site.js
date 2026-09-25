@@ -35,15 +35,14 @@
   }
 
   /* ---------- Contact form ----------
-     CONTACT_EMAIL is where enquiries should end up. A static page cannot send
-     mail by itself, so it is used here only for the fallback link below.
-
      CONTACT_ENDPOINT is a route on our own origin, handled by src/index.js,
      which forwards to the HighLevel webhook held in the HL_WEBHOOK_URL secret.
      Deliberately not the webhook itself: that URL must not appear in anything
-     the browser downloads. Empty it and the form falls back to the mailbox
-     notice below rather than dropping what someone typed. */
-  var CONTACT_EMAIL = 'administrator@alphainternational.energy';
+     the browser downloads.
+
+     No address is published anywhere on the page, by request, so the form is
+     the only way through. Empty CONTACT_ENDPOINT and the form disables itself
+     rather than dropping what someone typed. */
   var CONTACT_ENDPOINT = '/api/contact';
 
   var form = document.getElementById('contact-form');
@@ -58,16 +57,7 @@
     };
 
     if (!CONTACT_ENDPOINT) {
-      // Built as nodes, not innerHTML, so the address is never parsed as markup.
-      if (status) {
-        status.className = 'fstatus on bad';
-        status.textContent = 'This form is not connected yet. Please email ';
-        var a = document.createElement('a');
-        a.href = 'mailto:' + CONTACT_EMAIL;
-        a.textContent = CONTACT_EMAIL;
-        status.appendChild(a);
-        status.appendChild(document.createTextNode(' instead.'));
-      }
+      say('bad', 'This form is not accepting messages at the moment. Please try again later.');
       if (submit) { submit.disabled = true; }
     } else {
     form.addEventListener('submit', function (e) {
@@ -93,8 +83,7 @@
         form.reset();
         say('ok', 'Thank you. Your message has been received and someone will be in touch.');
       }).catch(function () {
-        // Give people the mailbox rather than a dead end.
-        say('bad', 'Sorry, that did not send. Please try again, or email ' + CONTACT_EMAIL + '.');
+        say('bad', 'Sorry, that did not send. Please try again in a moment.');
       }).then(function () {
         if (submit) { submit.disabled = false; }
       });

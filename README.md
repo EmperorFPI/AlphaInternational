@@ -75,8 +75,13 @@ npx wrangler secret put HL_WEBHOOK_URL
 
 Local development reads `.dev.vars` instead, which is gitignored. Copy
 `.dev.vars.example` to `.dev.vars` and fill it in. Without it the Worker
-returns 503 and the form shows a failure message pointing at `CONTACT_EMAIL` —
-it never pretends a submission succeeded.
+returns 503 and the form reports that the message did not send — it never
+pretends a submission succeeded.
+
+No email address is published anywhere on the site, by request, so the form is
+the only route in. That makes the webhook a single point of failure: if the
+secret is unset or HighLevel is down, a visitor has no way to reach the company
+from the site. Worth watching `npm run tail` after the first deploy.
 
 ### What gets forwarded
 
