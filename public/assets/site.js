@@ -35,11 +35,16 @@
   }
 
   /* ---------- Contact form ----------
-     PLACEHOLDER: no destination is wired up yet. Set CONTACT_ENDPOINT to the
-     URL that should receive the POST and the form goes live -- the "not
-     connected" notice and the disabled submit button both disappear on their
-     own. Until then the form refuses to submit rather than silently dropping
-     what someone typed. */
+     CONTACT_EMAIL is where enquiries should end up. A static page cannot send
+     mail by itself, so it is used here only for the fallback link below.
+
+     CONTACT_ENDPOINT is the URL this form POSTs to. It is still empty, because
+     delivering to CONTACT_EMAIL needs something server-side to do the sending
+     -- a Worker calling an email API, or a hosted form service. Set it and the
+     form goes live: the fallback notice and the disabled submit button both
+     clear themselves. Until then the form refuses to submit rather than
+     silently dropping what someone typed, and points at the mailbox instead. */
+  var CONTACT_EMAIL = 'administrator@alphainternational.energy';
   var CONTACT_ENDPOINT = '';
 
   var form = document.getElementById('contact-form');
@@ -54,8 +59,16 @@
     };
 
     if (!CONTACT_ENDPOINT) {
-      say('bad', 'This form is not connected yet, so it cannot accept messages. ' +
-                 'A destination has still to be set up.');
+      // Built as nodes, not innerHTML, so the address is never parsed as markup.
+      if (status) {
+        status.className = 'fstatus on bad';
+        status.textContent = 'This form is not connected yet. Please email ';
+        var a = document.createElement('a');
+        a.href = 'mailto:' + CONTACT_EMAIL;
+        a.textContent = CONTACT_EMAIL;
+        status.appendChild(a);
+        status.appendChild(document.createTextNode(' instead.'));
+      }
       if (submit) { submit.disabled = true; }
     } else {
     form.addEventListener('submit', function (e) {

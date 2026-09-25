@@ -107,12 +107,26 @@ npm run tail         # live request logs
 
 ### Needs a decision or sign-off, not a code change
 
-- **The contact form has no destination.** `CONTACT_ENDPOINT` at the top of the
-  contact-form block in `assets/site.js` is an empty string, so the form shows a
-  "not connected" notice and its submit button is disabled. It will not silently
-  drop what someone types, but nobody can reach you through it either. Set that
-  constant to the receiving URL and both the notice and the disabled state clear
-  themselves. **This must be done before the site goes live.**
+- **The contact form still cannot submit.** Enquiries are meant to reach
+  `administrator@alphainternational.energy`, which is set as `CONTACT_EMAIL` in
+  `assets/site.js` and published on the contact page. But a static page cannot
+  send mail: the form needs `CONTACT_ENDPOINT` — a URL that accepts the POST and
+  does the sending. Until that is set the submit button stays disabled and the
+  form tells people to email the address directly, so nothing is silently lost.
+
+  Two ways to close it, both needing an account somewhere:
+
+  - **A hosted form service** (Formspree, Web3Forms, Basin). You configure the
+    destination address there and paste the URL they give you into
+    `CONTACT_ENDPOINT`. No Worker code, the site stays assets-only. Submissions
+    pass through a third party.
+  - **A Worker plus an email API** (Resend, Postmark, Mailgun). Adds a `main`
+    script to `wrangler.jsonc`, an API key as a Worker secret, and DNS records
+    to verify the sending domain. More setup, but nothing leaves Cloudflare
+    except the send itself.
+
+  Either way the form's own code does not change — it already POSTs JSON with
+  the field names as keys. **This must be closed before the site goes live.**
 - **Named third parties.** ExxonMobil Trading and Halliburton are presented as
   commercial and technical partners, and a production-partnership framework
   with PDVSA is described. These imply relationships those parties may want to
@@ -129,12 +143,9 @@ npm run tail         # live request logs
 
 ### Accessibility
 
-- Contact card links inherit body colour with `text-decoration:none`, so the
-  email and both websites render as plain text with no affordance.
 - No skip link to main content.
 - The horizontally scrolling comparison table (`.tblwrap`) has no `tabindex`,
   so it cannot be scrolled by keyboard.
-- The copy button's "Copied" state change has no `aria-live` announcement.
 
 ### Polish
 
