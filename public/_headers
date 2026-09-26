@@ -4,6 +4,6 @@
   Referrer-Policy: strict-origin-when-cross-origin
   Strict-Transport-Security: max-age=31536000; includeSubDomains
 
-# Hashless filename, so keep this short until the site is versioned.
+# Pages link site.css/site.js with ?v=N; bump N whenever either changes.
 /assets/*
   Cache-Control: public, max-age=3600
