@@ -37,11 +37,7 @@
   .top .wrap{display:flex;align-items:center;justify-content:space-between;gap:24px;height:68px}
   .brand{display:flex;align-items:center;gap:14px;text-decoration:none;color:var(--carbon)}
   .brand{flex:none}
-  .brand .wordmark{height:18px;width:auto;display:block;flex:none}
-  /* Mark is 2.11x the wordmark's cap height in the source logo — keep that ratio. */
-  .brand .mark{height:38px;width:auto;display:block;flex:none}
-  .brand .div{width:1px;height:22px;background:var(--line)}
-  .brand .sub{font-size:10.5px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--steel);white-space:nowrap}
+  .brand .logo{height:44px;width:auto;display:block}
   .nav{display:flex;align-items:center;gap:28px}
 
   /* ---------- Mobile menu ---------- */
@@ -84,7 +80,7 @@
     .nav a.btn{margin-top:20px;justify-content:center}
     .top .btn{padding:14px 20px}
   }
-  @media (max-width:520px){.brand .div,.brand .sub{display:none}}
+  @media (max-width:520px){.brand .logo{height:38px}}
 
   /* ---------- Hero ---------- */
   .hero{background:var(--navy);color:var(--white);position:relative;overflow:hidden}
@@ -359,8 +355,7 @@
   footer .wrap{padding-block:56px 28px}
   .fgrid{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:40px;padding-bottom:40px;border-bottom:1px solid var(--line-dark)}
   .contain{display:inline-flex;align-items:center;gap:15px;background:var(--white);padding:16px 22px}
-  .contain .wordmark{height:20px;width:auto;display:block;color:var(--carbon)}
-  .contain .mark{height:42px;width:auto;display:block;flex:none}
+  .contain .logo{height:50px;width:auto;display:block}
   .fgrid .tl{margin-top:22px;font-size:11.5px;font-weight:600;letter-spacing:.24em;color:var(--white);line-height:1.8}
   .fgrid h4{margin:0 0 14px;font-size:10.5px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--on-navy-dim)}
   .fgrid ul{list-style:none;padding:0;margin:0;display:grid;gap:10px}
